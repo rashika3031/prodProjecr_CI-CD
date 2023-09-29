@@ -37,7 +37,7 @@ jobs:
         
         - name: Build Docker image
           run: |
-            docker build -t prodproject:latest .
+            docker build -t prodproject .
           env:
             DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
             DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -50,7 +50,7 @@ jobs:
         - name: Push Docker image to registry
           run: |
             echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin https://hub.docker.com
-            docker push "${DOCKER_REGISTRY_URL}/your-image:latest"
+            docker push "https://hub.docker.com/prodproject:latest"
           env:
             DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
             DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
