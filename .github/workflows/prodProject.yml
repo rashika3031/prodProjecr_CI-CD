@@ -26,9 +26,6 @@ jobs:
             name: prodProjectArtifact
             path: target/*.war 
         
-        # - name: Run SonarCloud analysis
-        #   run: mvn org.sonarsource.scanner.maven:sonar
-
         - name: SonarQube Scan
           env:
             GITHUB_TOKEN: ${{ secrets.TOKEN_GIT }}
@@ -37,7 +34,9 @@ jobs:
           run: mvn clean install sonar:sonar
   
     
-            
+        # - name: Run SonarCloud analysis
+        #   run: mvn org.sonarsource.scanner.maven:sonar
+    
         # - name: Run SonarCloud Analysis
         #   uses: SonarSource/sonarcloud-github-action@de2e56b42aa84d0b1c5b622644ac17e505c9a049
         #   env:
