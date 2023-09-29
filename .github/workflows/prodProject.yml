@@ -51,7 +51,6 @@ jobs:
           run: |
             echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
             docker push "${DOCKER_USERNAME}/prodproject:latest"
-          shell: /usr/bin/bash -e {0}
           env:
             DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
             DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
