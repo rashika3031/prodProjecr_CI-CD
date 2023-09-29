@@ -116,7 +116,7 @@
       <properties>
         <!-- SonarCloud properties -->
         <sonar.organization>rashika3031</sonar.organization>
-        <sonar.projectKey>prodProject_CI-CD</sonar.projectKey>
+        <sonar.projectKey>rashika3031_prodProject_CI-CD</sonar.projectKey>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
