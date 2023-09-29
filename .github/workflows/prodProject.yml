@@ -19,12 +19,7 @@ jobs:
   
         - name: Unit test case
           run: mvn test
-
-        - name: Run tests
-          uses: actions/github-script@v5
-          with:
-            script: mvn test
-              
+      
         - name: Generate and Upload Artifacts
           uses: actions/upload-artifact@v2
           with:
