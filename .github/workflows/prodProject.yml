@@ -49,12 +49,12 @@ jobs:
       
         - name: Push Docker image to registry
           run: |
-            echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin https://hub.docker.com
+            echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
             docker push "https://hub.docker.com/prodproject:latest"
           env:
             DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
             DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-            DOCKER_REGISTRY_URL: https://hub.docker.com
+            
           
         # - name: SonarQube Scan
         #   env:
