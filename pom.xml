@@ -10,6 +10,12 @@
   <packaging>war</packaging>
  
   <name>prodProject Maven Webapp</name>
+    <repositories>
+    <repository>
+      <id>sonarsource-releases</id>
+      <url>https://plugins.gradle.org/m2/</url>
+    </repository>
+  </repositories>
 
   <dependencies>
 	  
