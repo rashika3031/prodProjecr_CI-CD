@@ -98,6 +98,10 @@
           <groupId>org.sonarsource.scanner.maven</groupId>
           <artifactId>sonar-maven-plugin</artifactId>
           <version>3.9.0.2155</version>
+          <configuration>
+            <sonar.analysis.mode>preview</sonar.analysis.mode>
+          </configuration>
+
           <executions>
             <execution>
               <goals>
