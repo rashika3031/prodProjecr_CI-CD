@@ -37,7 +37,7 @@ jobs:
         
         - name: Build Docker image
           run: |
-            docker build -t prodProject:latest .
+            docker build -t prodproject:latest .
           env:
             DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
             DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -45,7 +45,7 @@ jobs:
         - name: Push Docker image to registry
           run: |
             docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD https://hub.docker.com/
-            docker push prodProject:latest
+            docker push prodproject:latest
 
         # - name: SonarQube Scan
         #   env:
