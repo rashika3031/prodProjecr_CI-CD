@@ -35,32 +35,20 @@ jobs:
             name: prodProjectArtifact
             path: target/*.war 
                  
-        - name: Login to Docker Hub
-          run: echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+        - name: Build Docker image
+          run: docker build -t "${DOCKER_USERNAME}/prodproject:latest" .
+          env:
+            DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        
+        - name: Push Docker image
+          run: |
+              echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+              docker push "${DOCKER_USERNAME}/prodproject:latest"
+              docker logout
           env:
             DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
             DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          
-        - name: Build and Push Docker Image
-          run: |
-            docker build -t "${DOCKER_USERNAME}/prodproject:latest" .
-            docker push "${DOCKER_USERNAME}/prodproject:latest"
-          
-        - name: Logout from Docker Hub
-          run: docker logout
-          
+            
         
-        # - name: Build Docker image
-        #   run: docker build -t "${DOCKER_USERNAME}/prodproject:latest" .
-        #   env:
-        #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          
-        # - name: Push Docker image to registry
-        #   run: |
-        #     echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-        #     docker push "${DOCKER_USERNAME}/prodproject:latest"
-        #   env:
-        #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
             
             
