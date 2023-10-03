@@ -45,7 +45,7 @@ jobs:
         - name: Push Docker image to registry
           run: |
             echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-            docker push "prodproject:latest"
+            docker push prodproject:latest
           env:
             DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
             DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
