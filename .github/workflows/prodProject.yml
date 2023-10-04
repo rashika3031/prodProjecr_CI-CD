@@ -37,10 +37,27 @@ jobs:
   
         - name: Configure Artifactory authentication
           run: |
-            ARTIFACTORY_URL="${{ secrets.ARTIFACTORY_URL }}"
-            ARTIFACTORY_USERNAME="${{ secrets.ARTIFACTORY_USERNAME }}"
-            ARTIFACTORY_PASSWORD="${{ secrets.ARTIFACTORY_PASSWORD }}"
-            
+            echo ARTIFACTORY_URL="${{ secrets.ARTIFACTORY_URL }}"
+            echo ARTIFACTORY_USERNAME="${{ secrets.ARTIFACTORY_USERNAME }}"
+            echo ARTIFACTORY_PASSWORD="${{ secrets.ARTIFACTORY_PASSWORD }}"
+
+        # - name: Upload artifacts to Artifactory
+        #   uses: nnn
+        #   with:
+        #       artifactory-url: http://localhost:8081/artifactory
+        #       artifactory-username: admin
+        #       artifactory-password: password
+        #       target-repository: my-repo
+        #       artifacts: target/*.jar
+
+        - name: Upload artifacts to Artifactory
+          run: |
+            echo ARTIFACTORY_URL="${{ secrets.ARTIFACTORY_URL }}"
+            echo ARTIFACTORY_USERNAME="${{ secrets.ARTIFACTORY_USERNAME }}"
+            echo ARTIFACTORY_PASSWORD="${{ secrets.ARTIFACTORY_PASSWORD }}""
+            jfrog rt upload target/*.war generic
+
+      
 
   
       
