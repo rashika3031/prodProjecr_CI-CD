@@ -34,6 +34,11 @@ jobs:
           with:
             name: prodProject
             path: target/*.war
+
+        - name: Install and Configure JFrog CLI
+          run: |
+            sudo apt install jfrog-rt 
+            jfrog version
   
         - name: Configure Artifactory authentication
           run: |
