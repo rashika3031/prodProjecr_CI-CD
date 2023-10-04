@@ -37,6 +37,8 @@ jobs:
 
         - name: Install and Configure JFrog CLI
           run: |
+            sudo add-apt-repository ppa:jfrog/artifactory
+            sudo apt update
             sudo apt install jfrog-rt 
             jfrog version
   
