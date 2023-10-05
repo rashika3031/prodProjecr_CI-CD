@@ -38,7 +38,7 @@ jobs:
         - name: Download artifacts to a specific folder
           run: |
             mkdir -p /tmp/artifacts
-            cp -r .github/workflows/build-and-upload-artifacts/_artifacts/* /artifacts
+            cp -r .github/workflows/build-test-publishArtifacts/_artifacts/* /tmp/artifacts
     
 
         # - name: Build and Push Docker image
