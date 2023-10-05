@@ -28,6 +28,13 @@ jobs:
         
         - name: Unit test case
           run: mvn test
+        
+        - name: Get build number
+          id: build-number
+          run: |
+            BUILD_NUMBER=$(echo ${GITHUB_SHA} | cut -c-7)
+            echo "Build number: $BUILD_NUMBER"
+  
 
         - name: Upload artifacts
           uses: actions/upload-artifact@v3
