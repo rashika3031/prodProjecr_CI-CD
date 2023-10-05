@@ -32,13 +32,13 @@ jobs:
         - name: Upload artifacts
           uses: actions/upload-artifact@v3
           with:
-            name: prodProject
+            name: prodProject-$BUILD_NUMBER
             path: target/*.war
 
         - name: Download artifacts to a specific folder
           run: |
             mkdir -p /tmp/artifacts
-            cp -r .github/workflows/build-test-publishArtifacts/_artifacts/* /tmp/artifacts
+            cp -r .github/workflows/build-and-upload-artifacts/artifacts/* /tmp/artifacts
     
 
         # - name: Build and Push Docker image
