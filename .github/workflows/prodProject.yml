@@ -27,15 +27,10 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Get build number
-        run: |
-          BUILD_NUMBER=$(echo ${GITHUB_SHA} | cut -c-7)
-          echo "Build number: $BUILD_NUMBER"
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: prodProject-$(echo ${GITHUB_SHA} | cut -c-7).jar
+          name: prodProject-$GITHUB_ARTIFACTS_ID.jar
           path: target/*.war
 
       # - name: Download artifacts to a specific folder
