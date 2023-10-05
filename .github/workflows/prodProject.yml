@@ -29,24 +29,28 @@ jobs:
         - name: Unit test case
           run: mvn test
 
-        - name: Upload artifacts to Artifactory
+        - name: Upload artifacts
           uses: actions/upload-artifact@v3
           with:
             name: prodProject
             path: target/*.war
 
-        - name: Install and Configure JFrog CLI
-          run: |
-            sudo add-apt-repository ppa:jfrog/artifactory
-            sudo apt update
-            sudo apt install jfrog-rt 
-            jfrog version
+        - uses: jfrog/setup-jfrog-cli@v1
+        - run: jfrog --version
+            
+
+        # - name: Install and Configure JFrog CLI
+        #   run: |
+        #     sudo add-apt-repository ppa:jfrog/artifactory
+        #     sudo apt update
+        #     sudo apt install jfrog-rt 
+        #     jfrog version
   
-        - name: Configure Artifactory authentication
-          run: |
-            echo ARTIFACTORY_URL="${{ secrets.ARTIFACTORY_URL }}"
-            echo ARTIFACTORY_USERNAME="${{ secrets.ARTIFACTORY_USERNAME }}"
-            echo ARTIFACTORY_PASSWORD="${{ secrets.ARTIFACTORY_PASSWORD }}"
+        # - name: Configure Artifactory authentication
+        #   run: |
+        #     echo ARTIFACTORY_URL="${{ secrets.ARTIFACTORY_URL }}"
+        #     echo ARTIFACTORY_USERNAME="${{ secrets.ARTIFACTORY_USERNAME }}"
+        #     echo ARTIFACTORY_PASSWORD="${{ secrets.ARTIFACTORY_PASSWORD }}"
 
         # - name: Upload artifacts to Artifactory
         #   uses: nnn
