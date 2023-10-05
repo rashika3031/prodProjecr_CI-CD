@@ -31,7 +31,7 @@ jobs:
         run: |
           echo "run id: $GITHUB_RUN_ID"
           echo "workspace: $GITHUB_WORKSPACE"
-          echo "artifact: $GITHUB_ARTIFACTS_ID"
+          echo "artifact: $GITHUB_ARTIFACT_ID"
 
 
       - name: Upload artifacts
