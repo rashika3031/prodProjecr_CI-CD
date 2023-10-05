@@ -6,46 +6,105 @@ on:
   pull_request:
     branches: [ "main" ]
 
+
 jobs:
-    build-test-publishArtifacts:
-      runs-on: ubuntu-latest
-  
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
+  build-test-publishArtifacts:
+    runs-on: ubuntu-latest
 
-        - name: Cache Maven dependencies
-          uses: actions/cache@v2
-          with:
-            path: |
-              ~/.m2/repository
-            key: ${{ runner.os }}-maven-${{ hashFiles('**/*.xml') }}
-            restore-keys: |
-              ${{ runner.os }}-maven-
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/*.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build with Maven
+        run: mvn clean install
+
+      - name: Get build number
+        run: |
+          BUILD_NUMBER=$(echo ${GITHUB_SHA} | cut -c-7)
+          echo "Build number: $BUILD_NUMBER"
+
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: prodProject-${{ env.BUILD_NUMBER }}.jar
+      #     path: target/*.war
+
+      # - name: Download artifacts to a specific folder
+      #   run: |
+      #     mkdir -p /tmp/artifacts
+      #     cp -r .github/workflows/build-and-upload-artifacts/artifacts/* /tmp/artifacts
+
+
+
+
+
+
+
+
+
+
+
+
+# name: Java CI with Maven
+
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]    
+
+# jobs:
+#     build-test-publishArtifacts:
+#       runs-on: ubuntu-latest
+#       env:
+#         BUILD_NUMBER: ${{ steps.build-number.outputs.BUILD_NUMBER }}
+      
   
-        - name: Build with Maven
-          run: mvn clean install
+#       steps:
+#         - name: Checkout code
+#           uses: actions/checkout@v2
+
+#         - name: Cache Maven dependencies
+#           uses: actions/cache@v2
+#           with:
+#             path: |
+#               ~/.m2/repository
+#             key: ${{ runner.os }}-maven-${{ hashFiles('**/*.xml') }}
+#             restore-keys: |
+#               ${{ runner.os }}-maven-
+  
+#         - name: Build with Maven
+#           run: mvn clean install
         
-        - name: Unit test case
-          run: mvn test
+#         # - name: Unit test case
+#         #   run: mvn test
         
-        - name: Get build number
-          id: build-number
-          run: |
-            BUILD_NUMBER=$(echo ${GITHUB_SHA} | cut -c-7)
-            echo "Build number: $BUILD_NUMBER"
+#         - name: Get build number
+#           id: build-number
+#           run: |
+#             BUILD_NUMBER=$(echo ${GITHUB_SHA} | cut -c-7)
+#             echo "Build number: $BUILD_NUMBER"
   
 
-        - name: Upload artifacts
-          uses: actions/upload-artifact@v3
-          with:
-            name: prodProject-$BUILD_NUMBER
-            path: target/*.war
+#         - name: Upload artifacts
+#           uses: actions/upload-artifact@v3
+#           with:
+#             name: prodProject-${{ env.BUILD_NUMBER }}.jar
+#             path: target/*.war
 
-        - name: Download artifacts to a specific folder
-          run: |
-            mkdir -p /tmp/artifacts
-            cp -r .github/workflows/build-and-upload-artifacts/artifacts/* /tmp/artifacts
+#         - name: Download artifacts to a specific folder
+#           run: |
+#             mkdir -p /tmp/artifacts
+#             cp -r .github/workflows/build-and-upload-artifacts/artifacts/* /tmp/artifacts
     
 
         # - name: Build and Push Docker image
