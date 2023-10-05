@@ -35,23 +35,42 @@ jobs:
             name: prodProject
             path: target/*.war
 
-        - uses: jfrog/setup-jfrog-cli@v1
-        - run: jfrog --version
+        - name: Download artifacts to a specific folder
+          run: |
+            mkdir -p /tmp/artifacts
+            cp -r .github/workflows/build-and-upload-artifacts/_artifacts/* /artifacts
+    
+
+        # - name: Build and Push Docker image
+        #   run: |
+        #     docker build -t "${DOCKER_USERNAME}/prodproject:latest" .    
+        #   env:
+        #         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
 
-        - uses: jfrog/setup-jfrog-cli@v3
-          env:
-            JF_URL: ${{ secrets.JF_URL }}
-            JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
-            
-        - run: |
-              jf rt ping
-            
-          
 
-            
+
+
+
+
+
+
+
+
+
+
+        # - uses: jfrog/setup-jfrog-cli@v1
+        # - run: jfrog --version
 
         
+        # - uses: jfrog/setup-jfrog-cli@v3
+        #   env:
+        #     JF_URL: ${{ secrets.JF_URL }}
+        #     JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
+            
+        # - run: |
+        #       jf rt ping
+
         # - name: Configure Artifactory authentication
         #   run: |
         #     echo ARTIFACTORY_URL="${{ secrets.ARTIFACTORY_URL }}"
