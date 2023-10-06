@@ -30,7 +30,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: prodProject-${{ github.run_id }}.war
+          name: prod.war
           path: target/*.war
 
 
