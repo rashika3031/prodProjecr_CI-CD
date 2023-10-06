@@ -62,7 +62,7 @@ jobs:
 
       - name: Run Docker Container
         run: |
-          docker run -d -p 8080:8080 --name prodProject-container "${DOCKER_USERNAME}/prodproject:latest"
+          docker run -d -p 8080:8080 --name prodProject-container "${DOCKER_USERNAME}/prodproject:${{ github.run_id }}"
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
@@ -73,7 +73,7 @@ jobs:
       - name: Wait for Application to Start
         run: |
           timeout=0
-          until [ $timeout -eq 100 ]; do
+          until [ $timeout -eq 60 ]; do
             if docker logs prodProject-container | grep -q "Application started"; then
               echo "Application started!"
               exit 0
