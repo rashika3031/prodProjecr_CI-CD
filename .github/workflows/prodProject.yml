@@ -49,7 +49,7 @@ jobs:
       #       mv target/prodProject.war target/prodProjectArtifact.war
         
 
-      - name: Verify Artifacts Directory
+      - name: target Directory files
         run: |
           ls -la target
         
