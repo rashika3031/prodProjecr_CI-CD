@@ -34,20 +34,19 @@ jobs:
           path: target/*.war
         
 
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: prodProject-${{ github.run_id }}.war
-          path: target
+      # - name: Download Artifacts
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: prodProject-${{ github.run_id }}.war
+      #     path: target
 
       # - name: Rename Downloaded Artifact
       #   run: |
       #       mv target/prodProject.war target/prodProjectArtifact.war
-        
 
-      - name: target Directory files
-        run: |
-          ls -la /home/runner/work/prodProject_CI-CD/prodProject_CI-CD/target/
+      # - name: target Directory files
+      #   run: |
+      #     ls -la /home/runner/work/prodProject_CI-CD/prodProject_CI-CD/target/
         
       - name: Docker Login 
         uses: docker/login-action@v3
@@ -68,10 +67,13 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
-      - name: Show Container IP
-        run: |
-          container_ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' prodproject-container)
-          echo "Container IP Address: $container_ip"
+      - name: verify docker container
+        run: docker ps -a
+
+      # - name: Show Container IP
+      #   run: |
+      #     container_ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' prodproject-container)
+      #     echo "Container IP Address: $container_ip"
 
 
 
