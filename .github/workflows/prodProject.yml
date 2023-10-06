@@ -37,7 +37,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: prod.war
-          path: target
+          path: target/
 
 
       - name: Docker Login 
