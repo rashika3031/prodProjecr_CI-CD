@@ -47,7 +47,7 @@ jobs:
 
       - name: target Directory files
         run: |
-          ls -la target
+          ls -la /home/runner/work/prodProject_CI-CD/prodProject_CI-CD/target/
         
       - name: Docker Login 
         uses: docker/login-action@v3
