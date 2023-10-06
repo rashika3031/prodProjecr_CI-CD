@@ -33,6 +33,13 @@ jobs:
           name: prod.war
           path: target/*.war
 
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: prod.war
+          path: target
+
+
       - name: Docker Login 
         uses: docker/login-action@v3
         with:
