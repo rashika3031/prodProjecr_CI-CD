@@ -27,13 +27,12 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: prodProject-${{ github.run_id }}.war
-          path: target/*.war
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: prodProject-${{ github.run_id }}.war
+      #     path: target/*.war
         
-
       # - name: Download Artifacts
       #   uses: actions/download-artifact@v2
       #   with:
@@ -67,23 +66,23 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
-      - name: verify docker container is created
-        run: |
-          docker ps -a
-
-      # - name: Wait for Application to Start
+      # - name: verify docker container is created
       #   run: |
-      #     timeout=0
-      #     until [ $timeout -eq 100 ]; do
-      #       if docker logs prodProject-container | grep -q "Application started"; then
-      #         echo "Application started!"
-      #         exit 0
-      #       fi
-      #       sleep 5
-      #       timeout=$((timeout+5))
-      #     done
-      #     echo "Timed out waiting for application to start."
-      #     exit 1
+      #     docker ps -a
+
+      - name: Wait for Application to Start
+        run: |
+          timeout=0
+          until [ $timeout -eq 100 ]; do
+            if docker logs prodProject-container | grep -q "Application started"; then
+              echo "Application started!"
+              exit 0
+            fi
+            sleep 5
+            timeout=$((timeout+5))
+          done
+          echo "Timed out waiting for application to start."
+          
 
       - name: Show container response
         run: curl http://localhost:8080
