@@ -67,10 +67,26 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
-      - name: verify docker container
+      - name: verify docker container is created
         run: |
           docker ps -a
-          curl http://localhost:8080
+
+      - name: Wait for Application to Start
+        run: |
+          timeout=0
+          until [ $timeout -eq 300 ]; do
+            if docker logs prodProject-container | grep -q "Application started"; then
+              echo "Application started!"
+              exit 0
+            fi
+            sleep 5
+            timeout=$((timeout+5))
+          done
+          echo "Timed out waiting for application to start."
+          exit 1
+
+      - name: Show container response
+        run: curl http://localhost:8080
 
       - name: Show Container IP
         run: |
