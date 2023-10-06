@@ -33,6 +33,11 @@ jobs:
           name: prodProject.war
           path: target/*.war
 
+      - name: target Directory files
+        run: |
+            ls -la target
+        
+
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
@@ -73,16 +78,6 @@ jobs:
       #   run: |
       #     mkdir -p /tmp/artifacts
       #     cp -r .github/workflows/build-and-upload-artifacts/artifacts/* /tmp/artifacts
-
-
-
-
-
-
-
-
-
-
 
 
 # name: Java CI with Maven
