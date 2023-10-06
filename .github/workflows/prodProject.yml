@@ -36,7 +36,7 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
-          name: prod.war
+          name: prodProject.war
           path: target
 
       - name: Verify Artifacts Directory
