@@ -55,8 +55,8 @@ jobs:
 
       - name: Build and Push Docker image
         run: |
-          docker build -t "${DOCKER_USERNAME}/prodproject:latest" .
-          docker push "${DOCKER_USERNAME}/prodproject:latest"   
+          docker build -t "${DOCKER_USERNAME}/prodproject:${{ github.run_id }}" .
+          docker push "${DOCKER_USERNAME}/prodproject:${{ github.run_id }}"   
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
