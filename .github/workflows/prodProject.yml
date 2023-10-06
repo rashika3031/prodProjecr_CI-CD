@@ -39,6 +39,11 @@ jobs:
           name: prodProject.war
           path: target
 
+      - name: Rename Downloaded Artifact
+        run: |
+            mv target/prodProject.war target/prod.war
+        
+
       - name: Verify Artifacts Directory
         run: |
           ls -la target
