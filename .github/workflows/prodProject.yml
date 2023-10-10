@@ -62,18 +62,15 @@ jobs:
         run: |
           timeout=0
           until [ $timeout -eq 30 ]; do
-            if docker logs prodProject-container | grep -q "Application started"; then
+            if curl http://localhost:8080; then
               echo "Application started!"
+              curl http://localhost:8080
               exit 0
             fi
             sleep 5
             timeout=$((timeout+5))
           done
           echo "Timed out waiting for application to start."
-          
-
-      - name: Show container response
-        run: curl http://localhost:8080
 
       - name: Show Container IP
         run: |
