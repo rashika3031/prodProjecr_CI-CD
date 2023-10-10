@@ -40,6 +40,15 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
+      - name: Find and delete existing container
+        run: |
+          if [[ $(docker ps -a | grep prodProject-container) ]]; then
+            echo "Container prodProject-container exists."
+            docker rm -f prodProject-container
+          else
+            echo "Container prodProject-container does not exist."
+          
+
       - name: Run Docker Container
         run: |
           docker run -d -p 8080:8080 --name prodProject-container "${DOCKER_USERNAME}/prodproject:${{ github.run_id }}"
