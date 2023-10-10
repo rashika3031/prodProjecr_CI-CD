@@ -27,26 +27,6 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: prodProject-${{ github.run_id }}.war
-      #     path: target/*.war
-        
-      # - name: Download Artifacts
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: prodProject-${{ github.run_id }}.war
-      #     path: target
-
-      # - name: Rename Downloaded Artifact
-      #   run: |
-      #       mv target/prodProject.war target/prodProjectArtifact.war
-
-      # - name: target Directory files
-      #   run: |
-      #     ls -la /home/runner/work/prodProject_CI-CD/prodProject_CI-CD/target/
-        
       - name: Docker Login 
         uses: docker/login-action@v3
         with:
@@ -66,10 +46,7 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
-      # - name: verify docker container is created
-      #   run: |
-      #     docker ps -a
-
+    
       - name: Wait for Application to Start
         run: |
           timeout=0
@@ -89,12 +66,38 @@ jobs:
 
       - name: Show Container IP
         run: |
-          container_ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' prodproject-container)
+          container_ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' prodProject-container)
           echo "Container IP Address: $container_ip"
 
 
 
 
+
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: prodProject-${{ github.run_id }}.war
+      #     path: target/*.war
+        
+      # - name: Download Artifacts
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: prodProject-${{ github.run_id }}.war
+      #     path: target
+
+      # - name: Rename Downloaded Artifact
+      #   run: |
+      #       mv target/prodProject.war target/prodProjectArtifact.war
+
+      # - name: target Directory files
+      #   run: |
+      #     ls -la /home/runner/work/prodProject_CI-CD/prodProject_CI-CD/target/
+
+        # - name: verify docker container is created
+      #   run: |
+      #     docker ps -a
+
+        
 
 
     
