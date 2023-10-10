@@ -45,6 +45,7 @@ jobs:
           if [[ $(docker ps -a | grep prodProject-container) ]]; then
             echo "Container prodProject-container exists."
             docker rm -f prodProject-container
+            echo "Container prodProject-container deleted."
           else
             echo "Container prodProject-container does not exist."
           fi
@@ -57,18 +58,18 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
     
-      # - name: Wait for Application to Start
-      #   run: |
-      #     timeout=0
-      #     until [ $timeout -eq 60 ]; do
-      #       if docker logs prodProject-container | grep -q "Application started"; then
-      #         echo "Application started!"
-      #         exit 0
-      #       fi
-      #       sleep 5
-      #       timeout=$((timeout+5))
-      #     done
-      #     echo "Timed out waiting for application to start."
+      - name: Wait for Application to Start
+        run: |
+          timeout=0
+          until [ $timeout -eq 30 ]; do
+            if docker logs prodProject-container | grep -q "Application started"; then
+              echo "Application started!"
+              exit 0
+            fi
+            sleep 5
+            timeout=$((timeout+5))
+          done
+          echo "Timed out waiting for application to start."
           
 
       - name: Show container response
