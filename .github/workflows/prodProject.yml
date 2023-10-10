@@ -62,7 +62,7 @@ jobs:
         run: |
           timeout=0
           until [ $timeout -eq 30 ]; do
-            if curl http://localhost:8080; then
+          if docker logs prodProject-container | grep -q "Tomcat started on port(s): 8080"; then
               echo "Application started!"
               curl http://localhost:8080
               exit 0
